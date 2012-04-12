@@ -1,0 +1,50 @@
+---
+- cd git # or what ever your project directory is 
+- dancer -a Talk # scafold a new app
+- cd Talk && git init
+- git add *
+- git commit -m 'you have to start somewhere' -a
+- ln -s bin/app.pl app.psgi
+- plackup
+- http://0.0.0.0:5000/
+- |
+  package Talk;
+  use Dancer ':syntax';
+
+  our $VERSION = '0.1';
+
+  get '/' => sub {
+      template 'index';
+  };
+
+  true;
+- |
+  # This is the main configuration file of your Dancer app
+  # env-related settings should go to environments/$env.yml
+  # all the settings in this file will be loaded at Dancer's startup.
+
+  # Your application's name
+  appname: "Talk"
+
+  # The default layout to use for your application (located in
+  # views/layouts/main.tt)
+  layout: "main"
+
+  # when the charset is set to UTF-8 Dancer will handle for you
+  # all the magic of encoding and decoding. You should not care
+  # about unicode within your app when this setting is set (recommended).
+  charset: "UTF-8"
+
+  # template engine
+  # simple: default and very basic template engine
+  # template_toolkit: TT
+
+  template: "simple"
+
+  # template: "template_toolkit"
+  # engines:
+  #   template_toolkit:
+  #     encoding:  'utf8'
+  #     start_tag: '[%'
+  #     end_tag:   '%]'
+

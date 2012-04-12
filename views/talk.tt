@@ -1,0 +1,6 @@
+<h1>TALK</h1>
+<pre>
+<% slide %>
+</pre>
+<button>PREV</button>
+<button>NEXT</button>
