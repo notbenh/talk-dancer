@@ -1,15 +1,17 @@
-[% IF slide_type == 'HTML' %]
-[% slide %]
-[% ELSIF slide_type == 'PROMPT' %]
-<pre>
-[% slide %]
-</pre>
-[% ELSIF slide_type =='CODE' %]
-<pre class='brush: [% code_type | lower %]'>
-[% slide | html %]
-</pre>
-[% ELSE %]
-<p>
-[% slide %]
-</p>
-[% END %]
+<div id='slide'>
+  [% IF slide_type == 'HTML' %]
+  [% slide %]
+  [% ELSIF slide_type == 'PROMPT' %]
+  <pre class='prompt'>
+  [% slide %]
+  </pre>
+  [% ELSIF slide_type =='CODE' %]
+  <pre class='brush: [% code_type | lower %]'>
+  [% slide | html %]
+  </pre>
+  [% ELSE %]
+  <p class='normal'>
+  [% slide %]
+  </p>
+  [% END %]
+</div>

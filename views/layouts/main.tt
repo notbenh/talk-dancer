@@ -20,6 +20,7 @@
   <link type="text/css" rel="Stylesheet" href="/css/shThemeEclipse.css"/>
  
 </head>
+<div id='header'>meta-dancer: building a slide deck</div>
 <body>
 [% content %]
 <div id="footer">
@@ -31,12 +32,6 @@
 <script type="text/javascript"> SyntaxHighlighter.all() </script>
 <script type='text/javascript'>
 $(document).ready(function() {
-/*
-  $(document).bind( 'keydown'
-                  , 'n'
-                  , function(e){ console.info('next') }
-                  );
-*/
   $(document).keydown( function(e){
    var key = String.fromCharCode(e.keyCode);
    if ( key== 'N' || e.keyCode == 190) {

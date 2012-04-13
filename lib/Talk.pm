@@ -47,15 +47,14 @@ true;
 __DATA__
 ---
 - |
-  <h1>meta-dancer:</h1> building this slide deck with dancer
+  meta-dancer: lets talk about dancer about dancer from with in dancer
 - |
-  <h1>First what's Dancer?</h1>
-  <pre>
   Sinatra clone, not MVC... rather just VC
-   + routes
-   + templates
-   - ORM
-  </pre>
+  <ul>
+    <li>yes : routes</li>
+    <li>yes : templates</li>
+    <li>no  : ORM</li>
+  </ul>
 - sold... so how do I start?
 - ~> cpanm Dancer 
 - ~> cd git 
@@ -65,7 +64,7 @@ __DATA__
 - ~> git commit -m 'you have to start somewhere' -a
 - ~> ln -s bin/app.pl app.psgi
 - ~> plackup
-- point browser to http://0.0.0.0:5000/ <br> <img src='/images/fresh-install.png' height=50% width=50%>
+- http://0.0.0.0:5000/ <br> <img src='/images/fresh-install.png' height=50% width=50%>
 - TADA, but what got built?
 - |
   ~
@@ -111,9 +110,10 @@ __DATA__
   #     encoding:  'utf8'
   #     start_tag: '[%'
   #     end_tag:   '%]'
-- since were in here now, lets change our template to TT2 
+- change our template to TT2 
 - | 
   ~YAML
+  [FILE: ./config.yaml]
   #template: "simple"
   
   template: "template_toolkit"
@@ -304,13 +304,13 @@ __DATA__
 - but we should s/<%(.*?)%>/[%$1%]/g as we changed the bracket type in the config
 - before we get started... any questions thus far?
 - ok so this is a talk about buidling a slide deck
-- <strong>PLAN:</strong> all slides are items in an array, stored as YAML
+- PLAN, all slides are items in an array, stored as YAML
 - ~use YAML;
-- <strong>PLAN:</strong> YAML is stored in DATA so we can just keep one file open
+- PLAN, YAML is stored in DATA (simple)
 - | 
   ~
   __DATA__
-  - cd git # or what ever your project directory is 
+  - cd git 
 - ~ my $slides  = Load(join '', <Talk::DATA>);
 - now the code can access the data, but the user can't.
 - lets create a route
@@ -323,14 +323,14 @@ __DATA__
                       , page  => params->{page}
                       };
   };
-- but this will fail... we have not yet created a template 'slide'
+- but this will fail... we need to create  template 'slide'
 - |
   ~HTML
   [FILE: ./views/slide.tt]
   <p>
   [% slide %]
   </p>
-- plackup
+- ~> plackup
 - point browser at http://0.0.0.0:5000/slide/0
 - horray first slide! 
 - now lets get crafty and have pagination, though to make this really work we should have a session to pass the current page around
@@ -359,8 +359,46 @@ __DATA__
     $next = $next >= $last ? $last : $next;
     return forward qq{/slide/$next};
   };
-- plackup
+- ~> plackup
 - point browser at http://0.0.0.0:5000/slide/next
+- questions, that's the basics
+- what else I did
+- alias ./public/javascripts to ./public/js for simplicity
+- ~> cd javascripts && ln -s javascripts js && cd ..
+- update jquery, dancer ships with 1.4.2
+- ~> wget http://code.jquery.com/jquery-1.7.2.min.js -o ./public/jquery.js
+- update the call in ./views/layouts/main.tt
+- add hot keys via jquery
+- |
+  ~HTML
+  [FILE: ./views/layouts/main.tt]
+  <script type='text/javascript'>
+  $(document).ready(function() {
+    $(document).keydown( function(e){                                                                                                                                                                               
+     var key = String.fromCharCode(e.keyCode);
+     if ( key== 'N' || e.keyCode == 190) {
+        window.location = $('a#next').attr('href');
+     }
+     else if (key == 'P' || e.keyCode == 188) {
+        window.location = $('a#prev').attr('href');
+     }
+  });
+  });
+  </script>
+- plug in SyntaxHighlighter
+- provide syntax hooks for simplicity
+- first/last routes
+- |
+  <h1>Thanks:</h1>
+  <pre>
+  + <a href='https://github.com/sukria/Dancer'>sukria & team dancer</a>
+  + <a href='https://github.com/yaml'>ingy & team YAML</a>
+  + <a href='https://github.com/alexgorbatchev/SyntaxHighlighter'>alexgorbatchev for SyntaxHighlighter</a>
+  + <a href='https://twitter.com/#!/ericsbrain'>ewilhelm for nominating me</a>
+  + you for listening to me yammer on about dancer
+  </pre>
+ 
+  
 
 
 
