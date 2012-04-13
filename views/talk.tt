@@ -1,6 +1,15 @@
-<h1>TALK</h1>
+[% IF slide_type == 'HTML' %]
+[% slide %]
+[% ELSIF slide_type == 'PROMPT' %]
 <pre>
-<% slide %>
+[% slide %]
 </pre>
-<button>PREV</button>
-<button>NEXT</button>
+[% ELSIF slide_type =='CODE' %]
+<pre class='brush: [% code_type | lower %]'>
+[% slide | html %]
+</pre>
+[% ELSE %]
+<p>
+[% slide %]
+</p>
+[% END %]
